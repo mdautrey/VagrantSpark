@@ -12,7 +12,10 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "debian/contrib-jessie64"
+  # 64bits box
+  #config.vm.box = "debian/contrib-jessie64"
+  # 32bits box
+  config.vm.box = "hashicorp/precise32"
   config.vm.provision :shell, path: "bootstrap.sh", privileged: false
 
   # Disable automatic box update checking. If you disable this, then

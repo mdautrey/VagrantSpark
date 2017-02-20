@@ -1,4 +1,4 @@
 #!/bin/sh
 start-master.sh
-start-slave.sh spark://contrib-jessie:7077
-jupyter toree install --user --spark_opt='--master=spark://contrib-jessie:7077' --interpreters=Scala --spark_home=$SPARK_HOME
+start-slave.sh $SPARK_URL
+jupyter toree install --user --spark_opt="--master=$SPARK_URL" --interpreters=Scala --spark_home=$SPARK_HOME

@@ -1,11 +1,19 @@
 #!/usr/bin/env bash
 PACKAGEDIR=/vagrant/package
-HW_ARCH=64
+HW_ARCH=32
+#HW_ARCH=64
 if [ "$HW_ARCH" -eq 64 ]; then
     JDK_URL=http://download.oracle.com/otn-pub/java/jdk/8u112-b15/jdk-8u112-linux-x64.tar.gz
     JDK_FILE=jdk-8u112-linux-x64.tar.gz
     ANACONDA_URL=https://repo.continuum.io/archive/Anaconda2-4.3.0-Linux-x86_64.sh
     ANACONDA_FILE=Anaconda2-4.3.0-Linux-x86_64.sh
+    SPARK_URL='spark://contrib-jessie:7077'
+else
+    JDK_URL=http://download.oracle.com/otn-pub/java/jdk/8u112-b15/jdk-8u112-linux-i586.tar.gz
+    JDK_FILE=jdk-8u112-linux-i586.tar.gz
+    ANACONDA_URL=https://repo.continuum.io/archive/Anaconda2-4.3.0-Linux-x86.sh
+    ANACONDA_FILE=Anaconda2-4.3.0-Linux-x86.sh
+    SPARK_URL='spark://precise32:7077'
 fi
 
 
@@ -68,6 +76,11 @@ chmod 555 /vagrant/bin/*.sh
 echo 'PATH=$PATH:/vagrant/bin' >> .bashrc
 echo 'export PATH' >> .bashrc
 
+#####################################
+# setup du l URL vers spark
+#####################################
+echo "SPARK_URL=$SPARK_URL" >> .bashrc
+echo 'export SPARK_URL' >> .bashrc
 
 ##################################
 # Clean up
