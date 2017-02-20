@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 PACKAGEDIR=/vagrant/package
+HW_ARCH=64
+if [ "$HW_ARCH" -eq 64 ]; then
+    JDK_URL=http://download.oracle.com/otn-pub/java/jdk/8u112-b15/jdk-8u112-linux-x64.tar.gz
+    JDK_FILE=jdk-8u112-linux-x64.tar.gz
+    ANACONDA_URL=https://repo.continuum.io/archive/Anaconda2-4.3.0-Linux-x86_64.sh
+    ANACONDA_FILE=Anaconda2-4.3.0-Linux-x86_64.sh
+fi
+
+
 
 ##############################
 # installation de Java
@@ -9,14 +18,13 @@ if [ ! -d $PACKAGEDIR ]; then
     mkdir $PACKAGEDIR
 fi
 
-if [ ! -f $PACKAGEDIR/jdk-8u112-linux-x64.tar.gz ]; then
-    wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u112-b15/jdk-8u112-linux-x64.tar.gz -P $PACKAGEDIR
+if [ ! -f $PACKAGEDIR/$JDK_FILE ]; then
+    wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" $JDK_URL -P $PACKAGEDIR
 fi
-cp -f $PACKAGEDIR/jdk-8u112-linux-x64.tar.gz .
-tar xvf jdk-8u112-linux-x64.tar.gz
+cp -f $PACKAGEDIR/$JDK_FILE .
+tar xvf $JDK_FILE
 echo 'ADDED BY VAGRANT' >> .bashrc
 echo 'export JAVA_HOME=/home/vagrant/jdk1.8.0_112' >> .bashrc
-#chown -R vagrant:vagrant /home/vagrant/jdk1.8.0_112
 echo 'PATH=$PATH:$JAVA_HOME/bin' >> .bashrc
 echo 'export PATH' >> .bashrc
 
@@ -31,18 +39,16 @@ tar xvf spark-1.6.3-bin-hadoop2.6.tgz
 echo 'export SPARK_HOME=/home/vagrant/spark-1.6.3-bin-hadoop2.6' >> .bashrc
 echo 'PATH=$PATH:$SPARK_HOME/sbin' >> .bashrc
 echo 'export PATH' >> .bashrc
-#chown -R vagrant:vagrant /home/vagrant/spark-1.6.3-bin-hadoop2.6
 
 
 ####################################
 # installation d'Anaconda
 ####################################
-if [ ! -f $PACKAGEDIR/Anaconda2-4.3.0-Linux-x86_64.sh ]; then
-    wget https://repo.continuum.io/archive/Anaconda2-4.3.0-Linux-x86_64.sh -P $PACKAGEDIR
+if [ ! -f $PACKAGEDIR/$ANACONDA_FILE ]; then
+    wget $ANACONDA_URL -P $PACKAGEDIR
 fi
-cp -f $PACKAGEDIR/Anaconda2-4.3.0-Linux-x86_64.sh .
-bash ./Anaconda2-4.3.0-Linux-x86_64.sh -b -p /home/vagrant/anaconda2
-#chown -R vagrant:vagrant /home/vagrant/anaconda2
+cp -f $PACKAGEDIR/$ANACONDA_FILE .
+bash ./$ANACONDA_FILE -b -p /home/vagrant/anaconda2
 echo 'PATH=$PATH:$HOME/anaconda2/bin' >> .bashrc
 echo 'export PATH' >> .bashrc
 
