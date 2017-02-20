@@ -16,6 +16,7 @@ cp -f $PACKAGEDIR/jdk-8u112-linux-x64.tar.gz .
 tar xvf jdk-8u112-linux-x64.tar.gz
 echo 'ADDED BY VAGRANT' >> .bashrc
 echo 'export JAVA_HOME=/home/vagrant/jdk1.8.0_112' >> .bashrc
+chown -R vagrant:vagrant /home/vagrant/jdk1.8.0_112
 echo 'PATH=$PATH:$JAVA_HOME/bin' >> .bashrc
 echo 'export PATH' >> .bashrc
 
@@ -33,8 +34,28 @@ echo 'export PATH' >> .bashrc
 chown -R vagrant:vagrant /home/vagrant/spark-1.6.3-bin-hadoop2.6
 
 
-###################################
+####################################
+# installation d'Anaconda
+####################################
+if [ ! -f $PACKAGEDIR/Anaconda2-4.3.0-Linux-x86_64.sh ]; then
+    wget https://repo.continuum.io/archive/Anaconda2-4.3.0-Linux-x86_64.sh -P $PACKAGEDIR
+fi
+cp -f $PACKAGEDIR/Anaconda2-4.3.0-Linux-x86_64.sh .
+bash ./Anaconda2-4.3.0-Linux-x86_64.sh -b -p /home/vagrant/anaconda2
+chown -R vagrant:vagrant /home/vagrant/anaconda2
+echo 'PATH=$PATH:$HOME/anaconda2/bin' >> .bashrc
+echo 'export PATH' >> .bashrc
+
+####################################
+# installation de TOREE
+####################################
+pip install toree
+
+
+
+##################################
 # Clean up
 ###################################
 rm *.gz
 rm *.tgz
+rm *.sh
