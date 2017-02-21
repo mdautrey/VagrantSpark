@@ -34,3 +34,6 @@ Une version la plus simple possible de spark sous linux en installation automati
 ## Pour travailler
 Vos notebooks sont automatiquement sauvegardés dans le répertoire workspace de votre installation
 
+## Plus d'infos sur notre société 
+www.isitix.com
+
